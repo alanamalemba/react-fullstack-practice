@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function CreatePost() {
   const [username, setUsername] = useState("");
   const [title, setTitle] = useState("");
   const [postText, setPostText] = useState("");
+
+  const navigate = useNavigate();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -22,6 +25,7 @@ export default function CreatePost() {
       if (response.ok) {
         const responseData = await response.json();
         console.log("Post successful: ", responseData);
+        navigate("/");
       } else {
         console.log(
           "Error during POST request:",

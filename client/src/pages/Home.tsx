@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export type PostType = {
   id: string;
@@ -28,7 +29,8 @@ export default function Home() {
   return (
     <section className="flex flex-col gap-6 p-4 items-center">
       {listOfPosts.map((item) => (
-        <div
+        <Link
+          to={`post/${item.id}`}
           className=" h-[200px] w-[300px] border flex flex-col  shadow  rounded bg-blue-500"
           key={item.id}
         >
@@ -37,7 +39,7 @@ export default function Home() {
             {item.postText}
           </div>
           <div className="p-2 text-white">{item.username}</div>
-        </div>
+        </Link>
       ))}
     </section>
   );
