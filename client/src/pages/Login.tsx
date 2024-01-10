@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -16,6 +19,9 @@ export default function Login() {
       });
       const data = await response.json();
       console.log(data);
+      if (data.error) return;
+      sessionStorage.setItem("accessToken", data);
+      navigate(`/`);
     } catch (error) {
       if (error instanceof Error) {
         console.log(error.message);

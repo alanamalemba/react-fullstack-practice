@@ -40,6 +40,7 @@ export default function Post() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          accessToken: sessionStorage.getItem("accessToken") as string,
         },
         body: JSON.stringify({ commentBody: comment, PostId: id }),
       });
@@ -47,6 +48,11 @@ export default function Post() {
       console.log("response ", response);
 
       const data = await response.json();
+
+      if (data.error) {
+        console.log(data.error);
+        return;
+      }
 
       console.log("Comment added: ", data);
       setCommentsObject((comments) => [...comments, data]);
