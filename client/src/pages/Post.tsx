@@ -4,6 +4,7 @@ import { PostType } from "./Home";
 
 type CommentType = {
   commentBody: string;
+  username: string;
 };
 
 export default function Post() {
@@ -40,7 +41,7 @@ export default function Post() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          accessToken: sessionStorage.getItem("accessToken") as string,
+          accessToken: localStorage.getItem("accessToken") as string,
         },
         body: JSON.stringify({ commentBody: comment, PostId: id }),
       });
@@ -92,7 +93,8 @@ export default function Post() {
               className="rounded rounded-tl-none p-1 bg-blue-300"
               key={index}
             >
-              {comment.commentBody}
+              <p>{comment.commentBody}</p>
+              <span>{comment.username}</span>
             </div>
           ))}
         </div>
